@@ -53,12 +53,20 @@
                                         <td>{{ $supplier->email }}</td>
                                         <td>{{ $supplier->status }}</td>
                                         <td>
-                                            <a href="{{ route('suppliers.edit', $supplier) }}" class="btn btn-warning">Edit</a>
+                                        <div class="d-flex justify-content-start p-2">
+                                            <!-- Edit Button with margin-right for spacing -->
+                                            <a style="margin-right: 10px;" title ="edit" href="{{ route('suppliers.edit', $supplier) }}" class="btn btn-warning mr-2">
+                                                <i class="bi bi-pen text-white"></i>
+                                            </a>
+                                            
+                                            <!-- Delete Button with margin-left for spacing -->
                                             <form action="{{ route('suppliers.destroy', $supplier) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button title ="delete" type="submit" class="btn btn-danger ml-2 text-white"><i class="bi bi-trash-fill"></i></button>
                                             </form>
+                                        </div>
+
                                         </td>
                                     </tr>
                                 @endforeach

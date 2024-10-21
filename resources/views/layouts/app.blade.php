@@ -7,12 +7,14 @@
     <title>@yield('title', 'Procurement Application')</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pensio/assets/logo/favicon-16x16.png') }}">
 	<link rel="icon" type="image/x-icon" href="{{ asset('pensio/assets/logo/favicon.ico') }}">
-    
+
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('pensio/assets/libraries/aos/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('pensio/assets/css/main.min.css') }}">
     <link rel="stylesheet" href="{{ asset('pensio/assets/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/bootstrap-icons.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 
     <!--Datatable cdn -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
