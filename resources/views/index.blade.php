@@ -1,7 +1,6 @@
 
 @extends('layouts.app')
 
-@section('title', 'Home Page')
 
 @section('content')
 
@@ -9,7 +8,7 @@
 		<div class="container">
 			<div class="max-w-2xl mx-auto text-center pt-3 pb-2">
 				<h2 class="m-0 text-primary-emphasis text-base leading-7 fw-semibold">
-					Find the right plan for your business
+					Dashboard
 				</h2>
 				
 			</div>
