@@ -30,13 +30,15 @@
 						
 						<hr class="opacity-10">
 						
-						<a href="">
-                        </a><div class="mt-auto">
+						
+                        <a href="suppliers">
+                        <div class="mt-auto">
 							<button class="btn btn-primary text-white mt-4 w-100">
 								View
 							</button>
 						</div>
                         </a>
+                        
 
 					</div>
 				</div>
@@ -52,11 +54,13 @@
 						
 						<hr class="opacity-10">
 						
-						<div class="mt-auto">
+						<a href="items">
+                        <div class="mt-auto">
 							<button class="btn btn-primary text-white mt-4 w-100">
 								View
 							</button>
 						</div>
+                        </a>
 					</div>
 				</div>
 
@@ -71,11 +75,13 @@
 						
 						<hr class="opacity-10">
 						
-						<div class="mt-auto">
+						<a href="orders">
+                        <div class="mt-auto">
 							<button class="btn btn-primary text-white mt-4 w-100">
 								View
 							</button>
 						</div>
+                        </a>
 					</div>
 				</div>
 
