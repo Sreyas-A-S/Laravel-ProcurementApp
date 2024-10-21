@@ -23,43 +23,44 @@
 					<div class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
 						<h5>Suppliers List</h5>
 						<a href="{{ 'dg'}}" class="btn btn-primary">Add Supplier</a>
-    <table id="suppliersTable" class="table">
-        <thead>
+                        <table id="suppliersTable" class="table">
+    <thead>
+        <tr>
+            <th>Supplier No</th>
+            <th>Supplier Name</th>
+            <th>Address</th>
+            <th>TAX No</th>
+            <th>Country</th>
+            <th>Mobile No</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($suppliers as $supplier)
             <tr>
-                <th>Supplier No</th>
-                <th>Supplier Name</th>
-                <th>Address</th>
-                <th>TAX No</th>
-                <th>Country</th>
-                <th>Mobile No</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <td>{{ $supplier->id }}</td>
+                <td>{{ $supplier->supplier_name }}</td>
+                <td>{{ $supplier->address }}</td>
+                <td>{{ $supplier->tax_no }}</td>
+                <td>{{ $supplier->country }}</td>
+                <td>{{ $supplier->mobile_no }}</td>
+                <td>{{ $supplier->email }}</td>
+                <td>{{ $supplier->status }}</td>
+                <td>
+                    <a href="{{ route('suppliers.edit', $supplier) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('suppliers.destroy', $supplier) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach($suppliers as $supplier)
-                <tr>
-                    <td>{{ $supplier->id }}</td>
-                    <td>{{ $supplier->supplier_name }}</td>
-                    <td>{{ $supplier->address }}</td>
-                    <td>{{ $supplier->tax_no }}</td>
-                    <td>{{ $supplier->country }}</td>
-                    <td>{{ $supplier->mobile_no }}</td>
-                    <td>{{ $supplier->email }}</td>
-                    <td>{{ $supplier->status }}</td>
-                    <td>
-                        <a href="" class="btn btn-warning">Edit</a>
-                        <form action="" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @endforeach
+    </tbody>
+</table>
+
                         
 
 					</div>
@@ -112,27 +113,12 @@
 		</div>
 	</div>
 
-    <!-- Initialize DataTable -->
     <script>
     $(document).ready(function() {
-        $('#suppliersTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('suppliers.data') }}', // Route to fetch data
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'supplier_name', name: 'supplier_name' },
-                { data: 'address', name: 'address' },
-                { data: 'tax_no', name: 'tax_no' },
-                { data: 'country', name: 'country' },
-                { data: 'mobile_no', name: 'mobile_no' },
-                { data: 'email', name: 'email' },
-                { data: 'status', name: 'status' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false }
-            ]
-        });
+        $('#suppliersTable').DataTable(); // Simple initialization
     });
 </script>
+
 
    
     @endsection
