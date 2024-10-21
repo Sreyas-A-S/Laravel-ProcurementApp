@@ -20,7 +20,7 @@
 		<div class="container my-3">
 			<div class="row align-items-center align-items-xl-stretch flex-column flex-xl-row">
 				<div class="col-12 col-sm-10 col-md-7 col-lg-6 col-xl-4 mt-5">
-					< class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
+					<div class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
 						<h2>Suppliers</h2>
 						<div class="my-2">
 							<span class="fs-1 text-body-secondary fw-bold">$</span>
