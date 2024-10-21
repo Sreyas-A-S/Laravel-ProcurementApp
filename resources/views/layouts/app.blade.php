@@ -4,9 +4,10 @@
 
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('pensio/assets/logo/apple-touch-icon.png') }}">
 	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('pensio/assets/logo/favicon-32x32.png') }}">
+    <title>@yield('title', 'Procurement Application')</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pensio/assets/logo/favicon-16x16.png') }}">
 	<link rel="icon" type="image/x-icon" href="{{ asset('pensio/assets/logo/favicon.ico') }}">
-	<link rel="manifest" href="./assets/logo/site.webmanifest">
+    
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('pensio/assets/libraries/aos/aos.css') }}">
@@ -21,9 +22,6 @@
 </head>
 <body>
 	
-
-   
-
 
 
 	<!-- header top -->
