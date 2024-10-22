@@ -24,8 +24,23 @@
 					<div class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
                         <div class="d-flex justify-content-between ">
                         <h5>Items List</h5>
-						<a href="{{ 'dg'}}" class="btn btn-primary mb-5 text-white" >Add Item</a>
-                        </div>
+						<a href="{{ 'dg'}}" class="btn btn-primary mb-5 text-white" data-bs-toggle="modal" data-bs-target="#addNew">Add Item</a>
+                        
+                                        <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNew" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"> Add New Item </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    
+                                                                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     </div>
 						
                         <table id="ItemsTable" class="table">
                             <thead>
@@ -52,10 +67,10 @@
                                         <td>{{ $item->supplier_no }}</td>
                                         <td>{{ $item->unit_price }} / {{ $item->stock_unit }}  </td>
                                         <td>
-                                        <a href="dg" class="btn btn-danger mb-5 text-white" data-bs-toggle="modal" data-bs-target="#viewImage{{ $item->id }}">View</a>
+                                        <a href="#" class="btn btn-danger mb-5 text-white" data-bs-toggle="modal" data-bs-target="#viewImage{{ $item->id }}">View</a>
                                         </td>
 
-                                        <div class="modal fade" id="viewImage{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal fade" id="viewImage{{ $item->id }}" tabindex="-1" aria-labelledby="viewImageLabel{{ $item->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -81,67 +96,7 @@
                                         </div>
                                         
                                         @php $i++; @endphp
-                                        <!--<td>
-                                        <div class="d-flex justify-content-start p-2">
-                                           
-                                            <a style="margin-right: 10px;" title ="edit" href="#" class="btn btn-warning mr-2" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
-                                                <i class="bi bi-pen text-white"></i>
-                                            </a>
-                                            
-                                   
-                                            <button title="delete" class="btn btn-danger ml-2 text-white" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                        </div>
-
-
-                                       
-                                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Item: {{ $item->item_name }}</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        
-                                                        <form action="{{ route('items.update', $item->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="form-group">
-                                                                <label for="itemName">Item Name</label>
-                                                                <input type="text" class="form-control" id="itemName" name="item_name" value="{{ $item->item_name }}" required>
-                                                            </div>
-                                                            
-                                                            <button type="submit" class="btn btn-primary mt-3">Update</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                       
-                                        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Delete Item: {{ $item->item_name }}</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Are you sure you want to delete this item?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <form action="{{ route('items.destroy', $item->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                        
 
                                         </td>
                                     </tr>
@@ -162,7 +117,7 @@
 
     <script>
     $(document).ready(function() {
-        $('#ItemsTable').DataTable(); // Simple initialization
+        $('#ItemsTable').DataTable(); 
     });
 </script>
 
