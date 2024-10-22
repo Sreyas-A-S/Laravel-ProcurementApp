@@ -46,7 +46,7 @@
         <div class="container h-100 d-flex align-items-center">
             <div class="max-w-2xl mx-auto text-center">
                 <h1 class="m-0 mt-2 text-white tracking-tight text-3xl fw-bold" data-aos-delay="0" data-aos="fade" data-aos-duration="3000">
-                    Pricing
+                    Procurement App
                 </h1>
                 
             </div>
