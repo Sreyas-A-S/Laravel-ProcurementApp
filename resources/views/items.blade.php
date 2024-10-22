@@ -38,7 +38,7 @@
                                     <th>Stock Price per Unit</th>
                                     <th>Images</th>
                                     
-                                    <th>Actions</th>
+                                    <!-- <th>Actions</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,23 +51,97 @@
                                         <td>{{ $item->brand }} <br> {{ $item->category }}</td>
                                         <td>{{ $item->supplier_no }}</td>
                                         <td>{{ $item->unit_price }} / {{ $item->stock_unit }}  </td>
-                                        <td>{{ $item->images }}</td>
+                                        <td>
+                                        <a href="dg" class="btn btn-danger mb-5 text-white" data-bs-toggle="modal" data-bs-target="#viewImage{{ $item->id }}">View</a>
+                                        </td>
+
+                                        <div class="modal fade" id="viewImage{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel{{ $item->id }}">{{ $item->item_name }} Images </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    @if(!empty($item->item_images))
+                                                        
+                                                        @foreach(json_decode($item->item_images) as $image)
+                                                            
+                                                                <img style="padding: 5px;" src="{{ asset('items_img/' . $image) }}" alt="Item Image" class="img-fluid">
+                                                           
+                                                        @endforeach
+                                                        
+                                                    @else
+                                                        <p>No images available for this item.</p>
+                                                    @endif
+                                                                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         
                                         @php $i++; @endphp
-                                        <td>
+                                        <!--<td>
                                         <div class="d-flex justify-content-start p-2">
-                                            <!-- Edit Button with margin-right for spacing -->
-                                            <a style="margin-right: 10px;" title ="edit" href="{{ route('items.edit', $item) }}" class="btn btn-warning mr-2">
+                                           
+                                            <a style="margin-right: 10px;" title ="edit" href="#" class="btn btn-warning mr-2" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">
                                                 <i class="bi bi-pen text-white"></i>
                                             </a>
                                             
-                                            <!-- Delete Button with margin-left for spacing -->
-                                            <form action="{{ route('items.destroy', $item) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button title ="delete" type="submit" class="btn btn-danger ml-2 text-white"><i class="bi bi-trash-fill"></i></button>
-                                            </form>
+                                   
+                                            <button title="delete" class="btn btn-danger ml-2 text-white" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
                                         </div>
+
+
+                                       
+                                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Item: {{ $item->item_name }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        
+                                                        <form action="{{ route('items.update', $item->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="form-group">
+                                                                <label for="itemName">Item Name</label>
+                                                                <input type="text" class="form-control" id="itemName" name="item_name" value="{{ $item->item_name }}" required>
+                                                            </div>
+                                                            
+                                                            <button type="submit" class="btn btn-primary mt-3">Update</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                       
+                                        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $item->id }}">Delete Item: {{ $item->item_name }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Are you sure you want to delete this item?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="{{ route('items.destroy', $item->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
 
                                         </td>
                                     </tr>
