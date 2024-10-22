@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('inventory_location');
             $table->string('brand');
             $table->string('category');
-            $table->foreignId('supplier_no')->constrained('suppliers');
-            $table->string('stock_unit');
+            $table->foreignId('supplier_id')->constrained('suppliers');
+            $table->string('stock_unit')->default('Piece');
             $table->decimal('unit_price', 10, 2);
             $table->json('item_images');
             $table->string('status');

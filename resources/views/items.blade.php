@@ -62,9 +62,13 @@
                                         <div class="mb-2">
                                             <label for="supplier_id" class="form-label">Supplier:</label>
                                             <select name="supplier_id" class="form-select" required>
+                                            @if($suppliers->isEmpty())
+                                                <option value="" disabled selected>No suppliers available</option>
+                                            @else
                                                 @foreach($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>
                                                 @endforeach
+                                            @endif
                                             </select>
                                         </div>
 
@@ -118,19 +122,19 @@
                                     <th>Supplier</th>
                                     <th>Stock Price per Unit</th>
                                     <th>Images</th>
-                                    
-                                    <!-- <th>Actions</th> -->
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            @php $i=1; @endphp
                                 @foreach($items as $item)
-                                @php $i=1; @endphp
+                                
                                     <tr>
                                         <td>{{ $i }}</td>
                                         <td>{{ $item->item_name }}<br><h6 class="text-white" style="font-size: 12px; background: radial-gradient(circle at -0.8% 4.3%, rgb(59, 176, 255) 0%, rgb(76, 222, 250) 83.6%); font-color: white; padding: 5px; margin-top:10px; border-radius: 7px;">{{ $item->status }}</h6></td>
                                         <td>{{ $item->inventory_location }}</td>
                                         <td>{{ $item->brand }} <br> {{ $item->category }}</td>
-                                        <td>{{ $item->supplier_no }}</td>
+                                        <td>{{ $item->supplier->supplier_name  }}</td>
                                         <td>{{ $item->unit_price }} / {{ $item->stock_unit }}  </td>
                                         <td>
                                         <a href="#" class="btn btn-danger mb-5 text-white" data-bs-toggle="modal" data-bs-target="#viewImage{{ $item->id }}">View</a>
@@ -160,6 +164,114 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <td>
+
+                                        <a href="#" style="margin-bottom: 5px;" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editItemModal{{ $item->id }}"> Edit</a>
+                                        <form method="POST" action="{{ route('items.destroy', $item->id) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item? This action cannot be undone.');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" >
+                                                Delete
+                                            </button>
+                                        </form>
+
+                                        </td>
+
+                                     
+                                    
+                                        <div class="modal fade" id="editItemModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-md">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel{{ $item->id }}">Edit Item: {{ $item->item_name }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                       
+                                                        <form method="POST" action="{{ route('items.update', $item->id) }}" enctype="multipart/form-data">
+                                                            @csrf
+                                                            @method('PUT')
+
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="item_name" class="form-label">Item Name:</label>
+                                                                    <input type="text" class="form-control" name="item_name" value="{{ $item->item_name }}" required>
+                                                                </div>
+
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="inventory_location" class="form-label">Inventory Location:</label>
+                                                                    <input type="text" name="inventory_location" class="form-control" value="{{ $item->inventory_location }}" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="brand" class="form-label">Brand:</label>
+                                                                    <input type="text" name="brand" class="form-control" value="{{ $item->brand }}" required>
+                                                                </div>
+
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="category" class="form-label">Category:</label>
+                                                                    <input type="text" name="category" class="form-control" value="{{ $item->category }}" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="supplier_id" class="form-label">Supplier:</label>
+                                                                    <select name="supplier_id" class="form-select" required>
+                                                                        @foreach($suppliers as $supplier)
+                                                                            <option value="{{ $supplier->id }}" {{ $supplier->id == $item->supplier_id ? 'selected' : '' }}>
+                                                                                {{ $supplier->supplier_name }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="stock_unit" class="form-label">Stock Unit</label>
+                                                                    <select name="stock_unit" class="form-select" required>
+                                                                        <option value="Piece" {{ $item->stock_unit == 'Piece' ? 'selected' : '' }}>Piece</option>
+                                                                        <option value="Kg" {{ $item->stock_unit == 'Kg' ? 'selected' : '' }}>Kg</option>
+                                                                        <option value="Litre" {{ $item->stock_unit == 'Litre' ? 'selected' : '' }}>Litre</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="unit_price" class="form-label">Unit Price</label>
+                                                                    <input type="number" class="form-control" name="unit_price" value="{{ $item->unit_price }}" step="0.01" required>
+                                                                </div>
+
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="item_images" class="form-label">Item Images</label>
+                                                                    <input type="file" class="form-control" name="item_images[]" multiple>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="status" class="form-label">Status</label>
+                                                                    <select name="status" class="form-select">
+                                                                        <option value="Enabled" {{ $item->status == 'Enabled' ? 'selected' : '' }}>Enabled</option>
+                                                                        <option value="Disabled" {{ $item->status == 'Disabled' ? 'selected' : '' }}>Disabled</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">Save changes</button>
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         
                                         @php $i++; @endphp
                                         

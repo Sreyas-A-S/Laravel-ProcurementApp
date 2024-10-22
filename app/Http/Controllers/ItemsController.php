@@ -36,7 +36,7 @@ class ItemsController extends Controller
             foreach ($request->file('item_images') as $image) {
 
                 $filename = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('items'), $filename);
+                $image->move(public_path('items_img'), $filename);
                 $imagePaths[] = $filename;
             }
         }
@@ -44,7 +44,62 @@ class ItemsController extends Controller
         $validatedData['item_images'] = json_encode($imagePaths);
 
         Items::create($validatedData);
-
-        return redirect()->back()->with('success', 'Item created successfully!');
+        return redirect()->route('items.index')->with('success', 'Item created successfully!');
     }
-}
+
+
+            public function update(Request $request, $id)
+            {
+                $validatedData = $request->validate([
+                    'item_name' => 'required',
+                    'inventory_location' => 'required',
+                    'brand' => 'required',
+                    'category' => 'required',
+                    'supplier_id' => 'required',
+                    'stock_unit' => 'required',
+                    'unit_price' => 'required|numeric',
+                    'item_images.*' => 'image',
+                    'status' => 'required|in:Enabled,Disabled',
+                ]);
+
+                $item = Items::findOrFail($id);
+
+                $imagePaths = $item->item_images ? json_decode($item->item_images, true) : [];
+                if ($request->hasFile('item_images')) {
+                    foreach ($request->file('item_images') as $image) {
+                        $filename = time() . '_' . $image->getClientOriginalName();
+                        $image->move(public_path('items'), $filename);
+                        $imagePaths[] = $filename;
+                    }
+                }
+
+                $validatedData['item_images'] = json_encode($imagePaths);
+
+                $item->update($validatedData);
+
+                return redirect()->route('items.index')->with('success', 'Item updated successfully!');
+            }
+
+
+            public function destroy($id)
+            {
+                $item = Items::findOrFail($id);
+
+
+                if ($item->item_images) {
+                    $images = json_decode($item->item_images, true);
+
+                    foreach ($images as $image) {
+                        $imagePath = public_path('items') . '/' . $image;
+                        if (file_exists($imagePath)) {
+                            unlink($imagePath); 
+                        }
+                    }
+                }
+
+                $item->delete();
+
+                return redirect()->route('items.index')->with('success', 'Item and associated images deleted successfully!');
+            }
+       
+    }

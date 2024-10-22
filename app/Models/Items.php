@@ -25,4 +25,11 @@ class Items extends Model
     protected $casts = [
         "item_images" => 'array' ,
     ];
+
+    public function supplier()
+{
+    return $this->belongsTo(Supplier::class, 'supplier_id');
 }
+
+}
+
