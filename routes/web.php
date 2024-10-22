@@ -1,20 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ItemsController;
 
-Route::get('/', function () {
-    return view('index');
-});
 
 
 Route::get('/orders', function () {
     return view('orders');
 });
 
-Route::resource('index', Controller::class);
+Route::get('/', [IndexController::class, 'index']);
+
 
 Route::resource('suppliers', SupplierController::class);
 

@@ -23,7 +23,7 @@
 						<h2>Suppliers</h2>
 						<div class="my-2">
 							<span class="fs-1 text-body-secondary fw-bold">$</span>
-							<span class="fs-1 text-dak fw-bolder essential">49</span>
+							<span class="fs-1 text-body-secondary fw-bolder essential">{{ $array[0] }}</span>
 							<span class="fs-3 text-body-secondary">/mo</span>
 						</div>
 						
