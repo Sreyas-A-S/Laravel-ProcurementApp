@@ -20,12 +20,8 @@
 			<div class="row align-items-center align-items-xl-stretch flex-column flex-xl-row">
 				<div class="col-12 col-sm-10 col-md-7 col-lg-6 col-xl-4 mt-5">
 					<div class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
-						<h2>Suppliers</h2>
-						<div class="my-2">
-							<span class="fs-1 text-body-secondary fw-bold">$</span>
-							<span class="fs-1 text-body-secondary fw-bolder essential">{{ $array[0] }}</span>
-							<span class="fs-3 text-body-secondary">/mo</span>
-						</div>
+						<text class="d-flex justify-content-between align-items-center"><h2 >Suppliers</h2><span class="fs-1 text-body-secondary fw-bolder essential">{{ $array[0] }}</span></text>
+						
 						
 						<hr class="opacity-10">
 						
@@ -44,12 +40,9 @@
 
 				<div class="col-12 col-sm-10 col-md-7 col-lg-6 col-xl-4 mt-5">
 					<div class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
-						<h2>Items</h2>
-						<div class="my-2">
-							<span class="fs-1 text-body-secondary fw-bold">$</span>
-							<span class="fs-1 text-dak fw-bolder essential">49</span>
-							<span class="fs-3 text-body-secondary">/mo</span>
-						</div>
+					<text class="d-flex justify-content-between align-items-center"><h2 >Items</h2><span class="fs-1 text-body-secondary fw-bolder essential">{{ $array[1] }}</span></text>
+						
+						
 						
 						<hr class="opacity-10">
 						
@@ -65,12 +58,9 @@
 
 				<div class="col-12 col-sm-10 col-md-7 col-lg-6 col-xl-4 mt-5">
 					<div class="p-5 h-100 d-flex flex-column bg-body-tertiary shadow rounded-4">
-						<h2>Purchase Orders</h2>
-						<div class="my-2">
-							<span class="fs-1 text-body-secondary fw-bold">$</span>
-							<span class="fs-1 text-dak fw-bolder essential">49</span>
-							<span class="fs-3 text-body-secondary">/mo</span>
-						</div>
+					<text class="d-flex justify-content-between align-items-center"><h2 >Purchase</h2> <h5 class="mt-2">Orders</h5> <span class="fs-1 text-body-secondary fw-bolder essential">{{ $array[2] }}</span></text>
+						
+						
 						
 						<hr class="opacity-10">
 						

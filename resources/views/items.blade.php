@@ -35,7 +35,7 @@
                                     <th>Inventory Location</th>
                                     <th>Brand & Category</th>
                                     <th>Supplier</th>
-                                    <th>Stock Unit & Price</th>
+                                    <th>Stock Price per Unit</th>
                                     <th>Images</th>
                                     
                                     <th>Actions</th>
@@ -46,11 +46,11 @@
                                 @php $i=1; @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $item->item_name }}<br><h6 style="font-size: 12px; background-color: red; padding: 3px; border-radius: 7px;">{{ $item->status }}</h6></td>
+                                        <td>{{ $item->item_name }}<br><h6 class="text-white" style="font-size: 12px; background: radial-gradient(circle at -0.8% 4.3%, rgb(59, 176, 255) 0%, rgb(76, 222, 250) 83.6%); font-color: white; padding: 5px; margin-top:10px; border-radius: 7px;">{{ $item->status }}</h6></td>
                                         <td>{{ $item->inventory_location }}</td>
-                                        <td>{{ $item->brand }}</td>
+                                        <td>{{ $item->brand }} <br> {{ $item->category }}</td>
                                         <td>{{ $item->supplier_no }}</td>
-                                        <td>{{ $item->stock_unit }}</td>
+                                        <td>{{ $item->unit_price }} / {{ $item->stock_unit }}  </td>
                                         <td>{{ $item->images }}</td>
                                         
                                         @php $i++; @endphp
