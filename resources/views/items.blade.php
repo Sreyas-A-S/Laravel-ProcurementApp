@@ -26,20 +26,86 @@
                         <h5>Items List</h5>
 						<a href="{{ 'dg'}}" class="btn btn-primary mb-5 text-white" data-bs-toggle="modal" data-bs-target="#addNew">Add Item</a>
                         
-                                        <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNew" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"> Add New Item </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                    
-                                                                                            
-                                                    </div>
-                                                </div>
+                        <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNew" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add New Item</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ route('items.store') }}" enctype="multipart/form-data">
+                                        @csrf
+
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <label for="item_name" class="form-label">Item Name:</label>
+                                                <input type="text" class="form-control" name="item_name" required>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="inventory_location" class="form-label">Inventory Location:</label>
+                                                <input type="text" name="inventory_location" class="form-control" required>
                                             </div>
                                         </div>
+
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <label for="brand" class="form-label">Brand:</label>
+                                                <input type="text" name="brand" class="form-control" required>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="category" class="form-label">Category:</label>
+                                                <input type="text" name="category" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="supplier_id" class="form-label">Supplier:</label>
+                                            <select name="supplier_id" class="form-select" required>
+                                                @foreach($suppliers as $supplier)
+                                                    <option value="{{ $supplier->id }}">{{ $supplier->supplier_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <label for="stock_unit" class="form-label">Stock Unit</label>
+                                                <select name="stock_unit" class="form-select" required>
+                                                    <option selected disabled value="">Select Stock Unit</option>
+                                                    <option value="Piece">Piece</option>
+                                                    <option value="Kg">Kg</option>
+                                                    <option value="Litre">Litre</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="unit_price" class="form-label">Unit Price</label>
+                                                <input type="number" class="form-control" name="unit_price" step="0.01" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="item_images" class="form-label">Item Images</label>
+                                            <input type="file" class="form-control" accept="image/*" name="item_images[]" multiple required>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="status" class="form-label">Status</label>
+                                            <select name="status" class="form-select">
+                                                <option value="Enabled">Enabled</option>
+                                                <option value="Disabled">Disabled</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="text-end mt-3">
+                                            <button type="submit" class="btn btn-primary">Add Item</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                                      </div>
 						
                         <table id="ItemsTable" class="table">
@@ -78,9 +144,9 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                    @if(!empty($item->item_images))
+                                                    @if(!empty($item->item_images) && is_array($item->item_images))
                                                         
-                                                        @foreach(json_decode($item->item_images) as $image)
+                                                        @foreach($item->item_images as $image)
                                                             
                                                                 <img style="padding: 5px;" src="{{ asset('items_img/' . $image) }}" alt="Item Image" class="img-fluid">
                                                            
