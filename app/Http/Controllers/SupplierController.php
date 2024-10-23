@@ -21,9 +21,9 @@ class SupplierController extends Controller
         $validatedData = $request->validate([
             "supplier_name"=>'required',
             'address'=> 'required',
-            'tax_no'=>'required',
+            'tax_no'=>'required|numeric',
             'country' => 'required',
-            'mobile_no' =>'required',
+            'mobile_no' =>'required|numeric',
             'email' => 'required|email',
             'status'=> 'required|in:Active,Inactive,Blocked'
         ]);

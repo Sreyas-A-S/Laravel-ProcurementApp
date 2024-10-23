@@ -126,7 +126,7 @@
                                         <td>
                                         <div class="d-flex justify-content-start p-2">
                                             <!-- Edit Button with margin-right for spacing -->
-                                            <a style="margin-right: 10px;" title ="edit" href="{{ route('suppliers.edit', $supplier) }}" class="btn btn-warning mr-2">
+                                            <a style="margin-right: 10px;" title ="edit" href="#" data-bs-toggle="modal" data-bs-target="#editItemModal{{ $supplier->id }}" class="btn btn-warning mr-2">
                                                 <i class="bi bi-pen text-white"></i>
                                             </a>
                                             
