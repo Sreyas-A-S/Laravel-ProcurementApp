@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('item_total',10,2);
             $table->decimal('discount',10,2);
             $table->decimal('net_amount',10,2);
+            $table->json('items');
             $table->timestamps();
         });
     }
