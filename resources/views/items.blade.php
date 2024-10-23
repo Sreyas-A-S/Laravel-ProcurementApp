@@ -167,15 +167,17 @@
 
                                         <td>
 
-                                        <a href="#" style="margin-bottom: 5px;" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editItemModal{{ $item->id }}"> Edit</a>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                        <a href="#" style="" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editItemModal{{ $item->id }}"> <i class="bi bi-pen text-white"></i></a>
                                         <form method="POST" action="{{ route('items.destroy', $item->id) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item? This action cannot be undone.');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger" >
-                                                Delete
+                                            <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </form>
-
+                                        </div>
+                                            
                                         </td>
 
                                      
