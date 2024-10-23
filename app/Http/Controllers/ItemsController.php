@@ -101,5 +101,17 @@ class ItemsController extends Controller
 
                 return redirect()->route('items.index')->with('success', 'Item and associated images deleted successfully!');
             }
+
+            public function getItems($supplierId)
+            {
+                $items = Items::where('supplier_id', $supplierId)->get();
+                return response()->json($items);
+            }
+            public function getItemDetails($itemId)
+            {
+                $item = Items::find($itemId);              
+                return response()->json($item);
+            }
+
        
     }
