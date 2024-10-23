@@ -20,3 +20,9 @@ Route::get('/get-items/{supplierId}', [ItemsController::class, 'getItems']);
 
 Route::get('/get-item-details/{itemId}', [ItemsController::class, 'getItemDetails']);
 
+Route::get('/orders/{id}/export/csv', [OrderController::class, 'exportExcel'])->name('orders.export.csv');
+
+Route::get('/orders/{id}/print', [OrderController::class, 'exportPDF'])->name('orders.print');
+
+
+

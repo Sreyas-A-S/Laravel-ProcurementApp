@@ -13,12 +13,17 @@ class Order extends Model
  
         protected $table = 'orders';
     
-         protected $fillable = [
-            'supplier_id',
+        protected $fillable = [
             'order_date',
+            'supplier_id',
             'item_total',
             'discount',
             'net_amount',
+            'items', // This is the JSON field
+        ];
+
+        protected $casts = [
+            'items' => 'json',
         ];
     
      
@@ -28,8 +33,5 @@ class Order extends Model
         }
     
   
-        public function poItems()
-        {
-            return $this->hasMany(POItem::class, 'po_id');
-        }
+
 }

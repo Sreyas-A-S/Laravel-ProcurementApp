@@ -68,7 +68,7 @@ class ItemsController extends Controller
                 if ($request->hasFile('item_images')) {
                     foreach ($request->file('item_images') as $image) {
                         $filename = time() . '_' . $image->getClientOriginalName();
-                        $image->move(public_path('items'), $filename);
+                        $image->move(public_path('items_img'), $filename);
                         $imagePaths[] = $filename;
                     }
                 }
@@ -101,7 +101,16 @@ class ItemsController extends Controller
 
                 return redirect()->route('items.index')->with('success', 'Item and associated images deleted successfully!');
             }
-
+            public function getItems($supplierId)
+            {
+                $items = Items::where('supplier_id', $supplierId)->get();
+                return response()->json($items);
+            }
+            public function getItemDetails($itemId)
+            {
+                $item = Items::find($itemId);              
+                return response()->json($item);
+            }
 
        
     }

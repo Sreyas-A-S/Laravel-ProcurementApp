@@ -148,18 +148,20 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                    @if(!empty($item->item_images) && is_array($item->item_images))
-                                                        
-                                                        @foreach($item->item_images as $image)
-                                                            
-                                                                <img style="padding: 5px;" src="{{ asset('items_img/' . $image) }}" alt="Item Image" class="img-fluid">
-                                                           
-                                                        @endforeach
-                                                        
-                                                    @else
-                                                        <p>No images available for this item.</p>
-                                                    @endif
-                                                                                            
+                                                        @if(!empty($item->item_images))
+                                                            @php
+                                                                $images = json_decode($item->item_images, true); // Decode the JSON string into an array
+                                                            @endphp
+                                                            @if(is_array($images) && count($images) > 0)
+                                                                @foreach($images as $image)
+                                                                    <img style="padding: 5px;" src="{{ asset('items_img/' . $image) }}" alt="Item Image" class="img-fluid">
+                                                                @endforeach
+                                                            @else
+                                                                <p>No images available for this item.</p>
+                                                            @endif
+                                                        @else
+                                                            <p>No images available for this item.</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
