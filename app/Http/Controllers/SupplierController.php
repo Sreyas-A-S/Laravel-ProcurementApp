@@ -31,10 +31,27 @@ class SupplierController extends Controller
         return redirect()->route('suppliers.index')->with('success','Supplier Added Succesfully!');
 }
 
+    public function update(Request $request, $id) {
+        $validatedData = $request->validate([
+            "supplier_name"=>'required',
+            'address'=> 'required',
+            'tax_no'=>'required|numeric',
+            'country' => 'required',
+            'mobile_no' =>'required|numeric',
+            'email' => 'required|email',
+            'status'=> 'required|in:Active,Inactive,Blocked'
+        ]);
+
+        $supplier = Supplier::findOrFail($id);
+        $supplier->update($validatedData);
+
+        return redirect()->route('suppliers.index')->with('success','Supplier Updated Successfully');
+    }
+
     public function destroy($id) {
         $supplier= Supplier::findOrFail($id);
         $supplier->delete();
-        return redirect()->route('suppliers.index')->with('success','Suppliers Added Succcessfully!');
+        return redirect()->route('suppliers.index')->with('success','Supplier Added Succcessfully!');
     }
         
 }

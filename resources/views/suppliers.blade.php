@@ -31,7 +31,7 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Add New Item</h5>
+                                    <h5 class="modal-title">Add New Supplier</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -127,7 +127,7 @@
                                         <td>
                                         <div class="d-flex justify-content-start p-2">
                                             <!-- Edit Button with margin-right for spacing -->
-                                            <a style="margin-right: 10px;" title ="edit" href="#" data-bs-toggle="modal" data-bs-target="#editItemModal{{ $supplier->id }}" class="btn btn-warning mr-2">
+                                            <a style="margin-right: 10px;" title ="edit" href="#" data-bs-toggle="modal" data-bs-target="#editSupplierModal{{ $supplier->id }}" class="btn btn-warning mr-2">
                                                 <i class="bi bi-pen text-white"></i>
                                             </a>
                                             
@@ -137,6 +137,77 @@
                                                 @method('DELETE')
                                                 <button title ="delete" type="submit" class="btn btn-danger ml-2 text-white"><i class="bi bi-trash-fill"></i></button>
                                             </form>
+                                        </div>
+
+                                        
+                                       
+                                        <div class="modal fade" id="editSupplierModal{{ $supplier->id }}" tabindex="-1" aria-labelledby="editSupplierModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editSupplierModalLabel">Edit Supplier</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="{{ route('suppliers.update', $supplier->id) }}">
+                                                            @csrf
+                                                            @method('PUT')
+
+                                                           
+                                                            <div class="row mb-2">
+                                                                <div class="col-6">
+                                                                    <label for="supplier_name" class="form-label">Supplier Name:</label>
+                                                                    <input type="text" class="form-control" name="supplier_name" value="{{ $supplier->supplier_name }}" required>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label for="address" class="form-label">Address:</label>
+                                                                    <input type="text" class="form-control" name="address" value="{{ $supplier->address }}" required>
+                                                                </div>
+                                                            </div>
+
+                                                          
+                                                            <div class="row mb-2">
+                                                                <div class="col-6">
+                                                                    <label for="tax_no" class="form-label">TAX No:</label>
+                                                                    <input type="text" class="form-control" name="tax_no" value="{{ $supplier->tax_no }}" required>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label for="country" class="form-label">Country:</label>
+                                                                    <input type="text" class="form-control" name="country" value="{{ $supplier->country }}" required>
+                                                                </div>
+                                                            </div>
+
+                                                            
+                                                            <div class="row mb-2">
+                                                                <div class="col-6">
+                                                                    <label for="mobile_no" class="form-label">Mobile No:</label>
+                                                                    <input type="text" class="form-control" name="mobile_no" value="{{ $supplier->mobile_no }}" required>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label for="email" class="form-label">Email:</label>
+                                                                    <input type="email" class="form-control" name="email" value="{{ $supplier->email }}" required>
+                                                                </div>
+                                                            </div>
+
+                                                            
+                                                            <div class="row mb-2">
+                                                                <div class="col-6">
+                                                                    <label for="status" class="form-label">Status:</label>
+                                                                    <select name="status" class="form-select" required>
+                                                                        <option value="Active" {{ $supplier->status == 'Active' ? 'selected' : '' }}>Active</option>
+                                                                        <option value="Inactive" {{ $supplier->status == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                                                        <option value="Blocked" {{ $supplier->status == 'Blocked' ? 'selected' : '' }}>Blocked</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="text-end mt-3">
+                                                                <button type="submit" class="btn btn-primary">Update Supplier</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         </td>
