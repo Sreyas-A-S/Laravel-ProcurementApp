@@ -64,7 +64,7 @@
                                                 <option value="India">India</option>
                                                 <option value="USA">USA</option>
                                                 <option value="UK">UK</option>
-                                                <!-- Add more countries as needed -->
+                                                
                                             </select>
                                         </div>
                                         <div class="col-6">
@@ -126,12 +126,10 @@
                                         <td>{{ $supplier->status }}</td>
                                         <td>
                                         <div class="d-flex justify-content-start p-2">
-                                            <!-- Edit Button with margin-right for spacing -->
                                             <a style="margin-right: 10px;" title ="edit" href="#" data-bs-toggle="modal" data-bs-target="#editSupplierModal{{ $supplier->id }}" class="btn btn-warning mr-2">
                                                 <i class="bi bi-pen text-white"></i>
                                             </a>
                                             
-                                            <!-- Delete Button with margin-left for spacing -->
                                             <form action="{{ route('suppliers.destroy', $supplier->id) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this supplier? This action cannot be undone.');" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
@@ -230,7 +228,7 @@
 
     <script>
     $(document).ready(function() {
-        $('#suppliersTable').DataTable(); // Simple initialization
+        $('#suppliersTable').DataTable(); 
     });
 </script>
 

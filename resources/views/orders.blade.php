@@ -27,7 +27,6 @@
 						<a href="#" class="btn btn-primary mb-5 text-white"  data-bs-toggle="modal" data-bs-target="#addNew">Order</a>
                         </div>
 
-                        <!-- Purchase Order Modal -->
                             <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNewModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -57,7 +56,6 @@
                                                 <div class="mb-3">
                                                     <label for="itemSelect" class="form-label">Select Items <text style="font-size:.8em; opacity: 80%;">( Long press on Ctrl(Windows)/Command(Mac) + select )</text>:</label>
                                                     <select id="itemSelect" name="itemSelect[]" class="form-select" multiple disabled required>
-                                                        <!-- Items will be populated here via AJAX -->
                                                     </select>
                                                 </div>
 
@@ -77,7 +75,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="itemList">
-                                                        <!-- Dynamic Item Rows will be appended here -->
                                                     </tbody>
                                                 </table>
 
@@ -150,7 +147,7 @@
                                         </td>
                                 </tr>
 
-                                @php $i=1; @endphp
+                                @php $i++; @endphp
                                 
                                 @endforeach
                             </tbody>
@@ -169,10 +166,10 @@
 
 <script>
 $(document).ready(function() {
-    // Initialize DataTable for suppliers
+
     $('#suppliersTable').DataTable();
 
-    // Handle supplier selection change
+
     $('#supplierSelect').change(function() {
         var supplierId = $(this).val();
         if (supplierId) {
@@ -180,8 +177,8 @@ $(document).ready(function() {
                 url: '/get-items/' + supplierId,
                 method: 'GET',
                 success: function(data) {
-                    $('#itemSelect').empty(); // Clear previous items
-                    $('#itemSelect').prop('disabled', false); // Enable select
+                    $('#itemSelect').empty(); 
+                    $('#itemSelect').prop('disabled', false); 
                     if (data.length > 0) {
                         data.forEach(function(item) {
                             $('#itemSelect').append(new Option(item.item_name, item.id));
@@ -195,25 +192,25 @@ $(document).ready(function() {
                 }
             });
         } else {
-            $('#itemSelect').empty().prop('disabled', true); // Clear and disable if no supplier is selected
+            $('#itemSelect').empty().prop('disabled', true); 
         }
     });
 
-    let itemIndex = 0; // Initialize item index
+    let itemIndex = 0; 
 
     $('#itemSelect').change(function() {
-        var selectedItems = $(this).val(); // Get all selected items
-        $('#itemList').empty(); // Clear previous rows
-        $('#itemTable').hide(); // Hide the items table initially
+        var selectedItems = $(this).val(); 
+        $('#itemList').empty(); 
+        $('#itemTable').hide(); 
 
-        // Check if items are selected
+
         if (selectedItems.length > 0) {
             selectedItems.forEach(function(itemId) {
                 $.ajax({
                     url: '/get-item-details/' + itemId,
                     method: 'GET',
                     success: function(item) {
-                        // Create a new row for the item with incremented index
+                        
                         var row = `<tr>
                             <td>${itemIndex + 1}</td> <!-- Item No -->
                             <td>
@@ -234,50 +231,49 @@ $(document).ready(function() {
                             <td class="net-amount">${item.unit_price}</td> <!-- Net Amount -->
                         </tr>`;
                         $('#itemList').append(row);
-                        itemIndex++; // Increment item index for the next row
+                        itemIndex++;
                     },
                     error: function(xhr, status, error) {
                         console.error('Error fetching item details:', error);
                     },
                     complete: function() {
-                        // Call calculateTotals() after all items are added to the table
+                       
                         calculateTotals();
                     }
                 });
             });
-            $('#itemTable').show(); // Show the items table
+            $('#itemTable').show(); 
         } else {
-            $('#itemTable').hide(); // Hide if no items selected
+            $('#itemTable').hide(); 
         }
     });
 
-    // Event delegation to handle dynamic rows for order quantity and discount input
+
     $('#itemList').on('input', '.order-qty, .discount', function() {
         calculateTotals();
     });
 
     function calculateTotals() {
-        let totalAmount = 0; // Initialize total amount
-        let totalDiscount = 0; // Initialize total discount
+        let totalAmount = 0; 
+        let totalDiscount = 0; 
 
         $('#itemList tr').each(function() {
-            const qty = parseFloat($(this).find('.order-qty').val()) || 0; // Get quantity
-            const unitPrice = parseFloat($(this).find('.item-amount').text()) || 0; // Get unit price
-            const discount = parseFloat($(this).find('.discount').val()) || 0; // Get discount
+            const qty = parseFloat($(this).find('.order-qty').val()) || 0; 
+            const unitPrice = parseFloat($(this).find('.item-amount').text()) || 0; 
+            const discount = parseFloat($(this).find('.discount').val()) || 0; 
 
-            // Calculate item amount and net amount
+         
             const itemAmount = qty * unitPrice;
             const netAmount = itemAmount - discount;
 
-            // Update the row's net amount
+   
             $(this).find('.net-amount').text(netAmount.toFixed(2));
 
-            // Accumulate totals
             totalAmount += itemAmount;
             totalDiscount += discount;
         });
 
-        // Update the total fields in the form
+
         $('#item_total').val(totalAmount.toFixed(2));
         $('#discount').val(totalDiscount.toFixed(2));
         $('#net_amount').val((totalAmount - totalDiscount).toFixed(2));

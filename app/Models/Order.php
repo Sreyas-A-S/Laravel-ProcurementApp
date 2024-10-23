@@ -19,7 +19,7 @@ class Order extends Model
             'item_total',
             'discount',
             'net_amount',
-            'items', // This is the JSON field
+            'items', 
         ];
 
         protected $casts = [

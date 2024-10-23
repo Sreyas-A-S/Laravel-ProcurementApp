@@ -174,7 +174,7 @@
                                         <form method="POST" action="{{ route('items.destroy', $item->id) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item? This action cannot be undone.');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" >
+                                            <button type="submit" class="btn btn-danger text-white" >
                                             <i class="bi bi-trash-fill"></i>
                                             </button>
                                         </form>

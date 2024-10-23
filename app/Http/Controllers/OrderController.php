@@ -18,7 +18,7 @@ class OrderController extends Controller
     }
 
     public function store(Request $request) {
-        // Validate the incoming request data
+
         $validatedData = $request->validate([
             'order_date' => 'required|date',
             'supplier_id' => 'required|exists:suppliers,id',
@@ -35,13 +35,9 @@ class OrderController extends Controller
             'items.*.discount' => 'nullable|numeric|min:0',
         ]);
         
-        // Convert items array to JSON for storage
         $validatedData['items'] = json_encode($validatedData['items']);
     
-        // Debugging: Check if items data is present
-       // dd($validatedData);
-        
-        // Create the order with the validated data
+
         Order::create([
             'order_date' => $validatedData['order_date'],
             'supplier_id' => $validatedData['supplier_id'],
