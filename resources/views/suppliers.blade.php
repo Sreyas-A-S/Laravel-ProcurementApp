@@ -113,9 +113,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $i=1; @endphp
                                 @foreach($suppliers as $supplier)
                                     <tr>
-                                        <td>{{ $supplier->id }}</td>
+                                        <td>{{ $i }}</td>
                                         <td>{{ $supplier->supplier_name }}</td>
                                         <td>{{ $supplier->address }}</td>
                                         <td>{{ $supplier->tax_no }}</td>
@@ -131,7 +132,7 @@
                                             </a>
                                             
                                             <!-- Delete Button with margin-left for spacing -->
-                                            <form action="{{ route('suppliers.destroy', $supplier) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('suppliers.destroy', $supplier->id) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this supplier? This action cannot be undone.');" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button title ="delete" type="submit" class="btn btn-danger ml-2 text-white"><i class="bi bi-trash-fill"></i></button>
@@ -140,6 +141,7 @@
 
                                         </td>
                                     </tr>
+                                    @php $i++; @endphp
                                 @endforeach
                             </tbody>
                         </table>

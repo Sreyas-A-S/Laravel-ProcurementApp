@@ -30,5 +30,11 @@ class SupplierController extends Controller
         Supplier::create($validatedData);
         return redirect()->route('suppliers.index')->with('success','Supplier Added Succesfully!');
 }
+
+    public function destroy($id) {
+        $supplier= Supplier::findOrFail($id);
+        $supplier->delete();
+        return redirect()->route('suppliers.index')->with('success','Suppliers Added Succcessfully!');
+    }
         
 }
